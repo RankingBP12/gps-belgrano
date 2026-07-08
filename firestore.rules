@@ -1,0 +1,34 @@
+rules_version = '2';
+
+// Reglas para el MVP de GPS Belgrano.
+// - Lectura pública de categorías y profesionales (sitio público).
+// - "requests" y "favorites": creación abierta (formularios públicos).
+// - "users" y escrituras administrativas: reservadas para usuarios autenticados
+//   (se afinará con roles al desarrollar el panel admin).
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /categories/{id} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    match /professionals/{id} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    match /requests/{id} {
+      allow create: if true;
+      allow read, update, delete: if request.auth != null;
+    }
+
+    match /favorites/{id} {
+      allow read, write: if request.auth != null;
+    }
+
+    match /users/{id} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
