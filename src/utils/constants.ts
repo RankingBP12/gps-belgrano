@@ -30,7 +30,6 @@ export const SORT_OPTIONS = [
 
 export const NAV_LINKS = [
   { label: 'Inicio', to: '/' },
-  { label: 'Servicios', to: '/#categorias' },
   { label: 'Cómo funciona', to: '/como-funciona' },
   { label: 'Publicá tu servicio', to: '/publicar' },
   { label: 'Contacto', to: '/contacto' },
