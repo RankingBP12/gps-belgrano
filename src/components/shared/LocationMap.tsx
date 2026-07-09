@@ -17,7 +17,7 @@ export function LocationMap({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        'relative overflow-hidden rounded-3xl shadow-card ring-1 ring-line',
+        'relative aspect-[4/3] w-full overflow-hidden rounded-3xl bg-brand-50 shadow-card ring-1 ring-line',
         className,
       )}
     >
@@ -25,7 +25,7 @@ export function LocationMap({ className }: { className?: string }) {
         title="Mapa de General Belgrano, Buenos Aires"
         src={src}
         loading="lazy"
-        className="aspect-[4/3] w-full border-0"
+        className="absolute inset-0 h-full w-full border-0"
         referrerPolicy="no-referrer-when-downgrade"
       />
 
