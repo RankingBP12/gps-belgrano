@@ -2,7 +2,7 @@ import { MessageCircle } from 'lucide-react'
 import { Container, buttonClasses } from '@/components/ui'
 import { SearchBar } from './SearchBar'
 import { QuickCategories } from './QuickCategories'
-import { LocationMap } from '@/components/shared/LocationMap'
+import { CityIllustration, BigPin } from '@/components/shared/CityIllustration'
 import { whatsappLink } from '@/utils/whatsapp'
 import { useSettings } from '@/hooks/useSettings'
 
@@ -37,13 +37,17 @@ export function Hero() {
             <QuickCategories />
           </div>
 
-          {/* Columna derecha (55%) — visible también en mobile */}
-          <div className="relative">
-            <LocationMap />
+          {/* Columna derecha (55%) */}
+          <div className="relative hidden lg:block">
+            <div className="relative">
+              <CityIllustration className="rounded-3xl shadow-card ring-1 ring-line" />
+              {/* Pin grande superpuesto */}
+              <BigPin className="absolute left-1/2 top-6 h-40 w-auto -translate-x-1/2 drop-shadow-xl animate-fade-up" />
+            </div>
 
-            {/* Tarjeta flotante WhatsApp (borde verde) — solo desktop y si hay WhatsApp */}
+            {/* Tarjeta flotante WhatsApp (borde verde) — solo si hay WhatsApp configurado */}
             {whatsapp && (
-              <div className="absolute -bottom-8 left-6 right-6 hidden items-center gap-4 rounded-2xl border-2 border-accent-500 bg-white p-4 shadow-hover animate-fade-up lg:flex">
+              <div className="absolute -bottom-8 left-6 right-6 flex items-center gap-4 rounded-2xl border-2 border-accent-500 bg-white p-4 shadow-hover animate-fade-up">
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent-50 text-accent-600">
                   <MessageCircle className="h-6 w-6" />
                 </span>
