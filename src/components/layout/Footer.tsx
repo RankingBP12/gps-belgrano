@@ -24,12 +24,12 @@ export function Footer() {
           <div className="lg:col-span-1">
             <Logo />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-ink-soft">
-              El directorio de profesionales y servicios de confianza del pueblo de
-              Belgrano y alrededores.
+              El directorio de profesionales y servicios de confianza de General
+              Belgrano.
             </p>
             <div className="mt-4 flex items-center gap-2 text-sm text-ink-soft">
               <MapPin className="h-4 w-4 text-brand-600" />
-              Belgrano
+              General Belgrano, Buenos Aires
             </div>
           </div>
 
