@@ -3,14 +3,13 @@ import react from '@vitejs/plugin-react'
 import path from 'node:path'
 
 // https://vite.dev/config/
-export default defineConfig(({ command }) => ({
-  // En producción (build) se sirve bajo /gps-belgrano/ (GitHub Pages).
-  // En desarrollo queda en la raíz.
-  base: command === 'build' ? '/gps-belgrano/' : '/',
+// El sitio se sirve desde la raíz del dominio propio (www.gpsbelgrano.com.ar).
+export default defineConfig({
+  base: '/',
   plugins: [react()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
   },
-}))
+})
