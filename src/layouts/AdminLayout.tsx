@@ -5,6 +5,7 @@ import {
   FolderTree,
   Users,
   Info,
+  Settings,
   LogOut,
   Menu,
   X,
@@ -20,6 +21,7 @@ const NAV = [
   { to: ADMIN_ROUTES.categories, label: 'Categorías', icon: FolderTree, end: false },
   { to: ADMIN_ROUTES.professionals, label: 'Profesionales', icon: Users, end: false },
   { to: ADMIN_ROUTES.usefulData, label: 'Datos de interés', icon: Info, end: false },
+  { to: ADMIN_ROUTES.settings, label: 'Configuración', icon: Settings, end: false },
 ]
 
 export function AdminLayout() {

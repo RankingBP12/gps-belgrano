@@ -1,6 +1,7 @@
 import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from '@/contexts/AuthProvider'
 import { AdminAuthProvider } from '@/contexts/AdminAuthProvider'
+import { SettingsProvider } from '@/contexts/SettingsProvider'
 import { AppRoutes } from '@/routes/AppRoutes'
 
 // Basename para GitHub Pages (/gps-belgrano); en dev queda vacío.
@@ -11,7 +12,9 @@ export default function App() {
     <BrowserRouter basename={basename}>
       <AuthProvider>
         <AdminAuthProvider>
-          <AppRoutes />
+          <SettingsProvider>
+            <AppRoutes />
+          </SettingsProvider>
         </AdminAuthProvider>
       </AuthProvider>
     </BrowserRouter>

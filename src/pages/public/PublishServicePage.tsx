@@ -7,11 +7,12 @@ import { FilterField } from '@/components/filters/FilterField'
 import { WhatsAppButton } from '@/components/shared/WhatsAppButton'
 import { RubroCombobox } from '@/components/shared/RubroCombobox'
 import { useCategories } from '@/hooks/useCategories'
+import { useSettings } from '@/hooks/useSettings'
 import { findMatchingCategory } from '@/utils/categoryMatch'
-import { BUSINESS_WHATSAPP } from '@/utils/constants'
 
 export function PublishServicePage() {
   const { categories } = useCategories()
+  const { whatsapp } = useSettings()
   const [sent, setSent] = useState(false)
   const [form, setForm] = useState({
     name: '',
@@ -58,17 +59,20 @@ export function PublishServicePage() {
                 ¡Casi listo, {form.name.split(' ')[0] || 'crack'}!
               </h2>
               <p className="mt-2 max-w-md text-ink-soft">
-                Confirmá tu solicitud enviándonos los datos por WhatsApp. Nuestro
-                equipo revisará tu perfil y lo publicará a la brevedad.
+                {whatsapp
+                  ? 'Confirmá tu solicitud enviándonos los datos por WhatsApp. Nuestro equipo revisará tu perfil y lo publicará a la brevedad.'
+                  : 'Recibimos tus datos. Nuestro equipo revisará tu perfil y se pondrá en contacto a la brevedad.'}
               </p>
-              <div className="mt-6">
-                <WhatsAppButton
-                  phone={BUSINESS_WHATSAPP}
-                  message={waMessage}
-                  size="lg"
-                  label="Confirmar por WhatsApp"
-                />
-              </div>
+              {whatsapp && (
+                <div className="mt-6">
+                  <WhatsAppButton
+                    phone={whatsapp}
+                    message={waMessage}
+                    size="lg"
+                    label="Confirmar por WhatsApp"
+                  />
+                </div>
+              )}
               <Button
                 variant="ghost"
                 className="mt-3"

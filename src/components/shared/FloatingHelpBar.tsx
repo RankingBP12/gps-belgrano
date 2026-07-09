@@ -1,7 +1,7 @@
 import { MessageCircle } from 'lucide-react'
 import { Container, buttonClasses } from '@/components/ui'
 import { whatsappLink } from '@/utils/whatsapp'
-import { BUSINESS_WHATSAPP } from '@/utils/constants'
+import { useSettings } from '@/hooks/useSettings'
 
 interface FloatingHelpBarProps {
   question?: string
@@ -12,12 +12,16 @@ interface FloatingHelpBarProps {
 /**
  * Barra inferior fija (azul) con botón verde de WhatsApp.
  * Incluye un spacer para que no tape el contenido de la página.
+ * Si no hay WhatsApp configurado, no se muestra.
  */
 export function FloatingHelpBar({
   question = '¿Necesitás ayuda para encontrar un profesional?',
   buttonLabel = 'Escribir por WhatsApp',
   message = 'Hola! Necesito ayuda para encontrar un profesional en GPS Belgrano',
 }: FloatingHelpBarProps) {
+  const { whatsapp } = useSettings()
+  if (!whatsapp) return null
+
   return (
     <>
       {/* Spacer para compensar la barra fija */}
@@ -30,7 +34,7 @@ export function FloatingHelpBar({
               {question}
             </p>
             <a
-              href={whatsappLink(BUSINESS_WHATSAPP, message)}
+              href={whatsappLink(whatsapp, message)}
               target="_blank"
               rel="noopener noreferrer"
               className={buttonClasses('whatsapp', 'lg', false, 'shrink-0')}

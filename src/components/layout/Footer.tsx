@@ -2,8 +2,9 @@ import { Link } from 'react-router-dom'
 import { MapPin, Mail, MessageCircle } from 'lucide-react'
 import { Container } from '@/components/ui'
 import { Logo } from './Logo'
-import { NAV_LINKS, BUSINESS_WHATSAPP } from '@/utils/constants'
+import { NAV_LINKS } from '@/utils/constants'
 import { whatsappLink } from '@/utils/whatsapp'
+import { useSettings } from '@/hooks/useSettings'
 
 const categoriesQuick = [
   { label: 'Electricistas', to: '/electricistas' },
@@ -14,6 +15,7 @@ const categoriesQuick = [
 ]
 
 export function Footer() {
+  const { whatsapp, email } = useSettings()
   return (
     <footer className="border-t border-line bg-muted">
       <Container className="py-14">
@@ -69,26 +71,33 @@ export function Footer() {
           <div>
             <h3 className="text-sm font-semibold text-ink">Contacto</h3>
             <ul className="mt-4 space-y-3">
-              <li>
-                <a
-                  href={whatsappLink(BUSINESS_WHATSAPP, 'Hola! Quiero más info de GPS Belgrano')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-ink-soft transition-colors hover:text-accent-700"
-                >
-                  <MessageCircle className="h-4 w-4 text-accent-600" />
-                  WhatsApp
-                </a>
-              </li>
-              <li>
-                <a
-                  href="mailto:hola@gpsbelgrano.com"
-                  className="inline-flex items-center gap-2 text-sm text-ink-soft transition-colors hover:text-brand-700"
-                >
-                  <Mail className="h-4 w-4 text-brand-600" />
-                  hola@gpsbelgrano.com
-                </a>
-              </li>
+              {whatsapp && (
+                <li>
+                  <a
+                    href={whatsappLink(whatsapp, 'Hola! Quiero más info de GPS Belgrano')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm text-ink-soft transition-colors hover:text-accent-700"
+                  >
+                    <MessageCircle className="h-4 w-4 text-accent-600" />
+                    WhatsApp
+                  </a>
+                </li>
+              )}
+              {email && (
+                <li>
+                  <a
+                    href={`mailto:${email}`}
+                    className="inline-flex items-center gap-2 text-sm text-ink-soft transition-colors hover:text-brand-700"
+                  >
+                    <Mail className="h-4 w-4 text-brand-600" />
+                    {email}
+                  </a>
+                </li>
+              )}
+              {!whatsapp && !email && (
+                <li className="text-sm text-ink-faint">Próximamente</li>
+              )}
             </ul>
           </div>
         </div>

@@ -5,37 +5,54 @@ import { PageHero } from '@/components/shared/PageHero'
 import { Container, Input, Textarea, Button, buttonClasses } from '@/components/ui'
 import { FilterField } from '@/components/filters/FilterField'
 import { whatsappLink } from '@/utils/whatsapp'
-import { BUSINESS_WHATSAPP } from '@/utils/constants'
+import { useSettings } from '@/hooks/useSettings'
 
-const channels = [
-  {
-    icon: MessageCircle,
-    title: 'WhatsApp',
-    value: 'Respondemos al instante',
-    href: whatsappLink(BUSINESS_WHATSAPP, 'Hola! Quiero hacer una consulta'),
-    accent: 'text-accent-600 bg-accent-50',
-  },
-  {
-    icon: Mail,
-    title: 'Email',
-    value: 'hola@gpsbelgrano.com',
-    href: 'mailto:hola@gpsbelgrano.com',
-    accent: 'text-brand-600 bg-brand-50',
-  },
-  {
-    icon: MapPin,
-    title: 'Ubicación',
-    value: 'Belgrano y alrededores',
-    href: undefined,
-    accent: 'text-purple-600 bg-purple-50',
-  },
-]
+interface Channel {
+  icon: typeof MessageCircle
+  title: string
+  value: string
+  href?: string
+  accent: string
+}
 
 export function ContactPage() {
+  const { whatsapp, email } = useSettings()
   const [sent, setSent] = useState(false)
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const set = (k: keyof typeof form, v: string) =>
     setForm((f) => ({ ...f, [k]: v }))
+
+  const channels: Channel[] = [
+    ...(whatsapp
+      ? [
+          {
+            icon: MessageCircle,
+            title: 'WhatsApp',
+            value: 'Respondemos al instante',
+            href: whatsappLink(whatsapp, 'Hola! Quiero hacer una consulta'),
+            accent: 'text-accent-600 bg-accent-50',
+          },
+        ]
+      : []),
+    ...(email
+      ? [
+          {
+            icon: Mail,
+            title: 'Email',
+            value: email,
+            href: `mailto:${email}`,
+            accent: 'text-brand-600 bg-brand-50',
+          },
+        ]
+      : []),
+    {
+      icon: MapPin,
+      title: 'Ubicación',
+      value: 'Belgrano y alrededores',
+      href: undefined,
+      accent: 'text-purple-600 bg-purple-50',
+    },
+  ]
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -98,15 +115,17 @@ export function ContactPage() {
                   ¡Gracias por escribirnos!
                 </h3>
                 <p className="mt-2 text-ink-soft">Te responderemos a la brevedad.</p>
-                <a
-                  href={whatsappLink(BUSINESS_WHATSAPP)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={buttonClasses('whatsapp', 'md', false, 'mt-6')}
-                >
-                  <MessageCircle className="h-4 w-4" />
-                  Chatear ahora
-                </a>
+                {whatsapp && (
+                  <a
+                    href={whatsappLink(whatsapp)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={buttonClasses('whatsapp', 'md', false, 'mt-6')}
+                  >
+                    <MessageCircle className="h-4 w-4" />
+                    Chatear ahora
+                  </a>
+                )}
               </div>
             ) : (
               <form

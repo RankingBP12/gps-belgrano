@@ -17,6 +17,7 @@ import { AdminStatsPage } from '@/pages/admin/AdminStatsPage'
 import { AdminCategoriesPage } from '@/pages/admin/AdminCategoriesPage'
 import { AdminProfessionalsPage } from '@/pages/admin/AdminProfessionalsPage'
 import { AdminUsefulDataPage } from '@/pages/admin/AdminUsefulDataPage'
+import { AdminSettingsPage } from '@/pages/admin/AdminSettingsPage'
 
 export function AppRoutes() {
   return (
@@ -48,6 +49,7 @@ export function AppRoutes() {
         <Route path="categorias" element={<AdminCategoriesPage />} />
         <Route path="profesionales" element={<AdminProfessionalsPage />} />
         <Route path="datos" element={<AdminUsefulDataPage />} />
+        <Route path="configuracion" element={<AdminSettingsPage />} />
       </Route>
     </Routes>
   )

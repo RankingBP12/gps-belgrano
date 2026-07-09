@@ -1,8 +1,9 @@
 export const APP_NAME = 'GPS Belgrano'
-export const APP_TAGLINE = 'Profesionales y servicios en tu barrio'
+export const APP_TAGLINE = 'Guía de profesionales y servicios'
 
-/** Número de WhatsApp del negocio para la CTA general (formato internacional sin +). */
-export const BUSINESS_WHATSAPP = '5491100000000'
+/** Valores de contacto por defecto (se pueden editar/borrar desde el panel admin). */
+export const DEFAULT_WHATSAPP = '5491100000000'
+export const DEFAULT_EMAIL = 'hola@gpsbelgrano.com'
 
 export const AVAILABILITY_OPTIONS = [
   { value: 'all', label: 'Todos' },

@@ -4,9 +4,10 @@ import { SearchBar } from './SearchBar'
 import { QuickCategories } from './QuickCategories'
 import { CityIllustration, BigPin } from '@/components/shared/CityIllustration'
 import { whatsappLink } from '@/utils/whatsapp'
-import { BUSINESS_WHATSAPP } from '@/utils/constants'
+import { useSettings } from '@/hooks/useSettings'
 
 export function Hero() {
+  const { whatsapp } = useSettings()
   return (
     <section className="relative overflow-hidden bg-white">
       <Container className="py-12 md:py-16 lg:pb-28 lg:pt-20">
@@ -14,7 +15,7 @@ export function Hero() {
           {/* Columna izquierda (45%) */}
           <div className="animate-fade-up">
             <p className="text-sm font-bold uppercase tracking-wider text-accent-600">
-              Tu guía de profesionales en Belgrano
+              Guía de profesionales y servicios de Belgrano
             </p>
 
             <h1 className="mt-4 text-balance text-4xl font-extrabold leading-[1.08] tracking-tight text-ink sm:text-5xl xl:text-6xl">
@@ -44,29 +45,31 @@ export function Hero() {
               <BigPin className="absolute left-1/2 top-6 h-40 w-auto -translate-x-1/2 drop-shadow-xl animate-fade-up" />
             </div>
 
-            {/* Tarjeta flotante WhatsApp (borde verde) */}
-            <div className="absolute -bottom-8 left-6 right-6 flex items-center gap-4 rounded-2xl border-2 border-accent-500 bg-white p-4 shadow-hover animate-fade-up">
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent-50 text-accent-600">
-                <MessageCircle className="h-6 w-6" />
-              </span>
-              <div className="min-w-0 flex-1">
-                <p className="font-semibold text-ink">¿No sabés a quién llamar?</p>
-                <p className="text-sm text-ink-soft">
-                  Escribinos y te ayudamos a encontrarlo.
-                </p>
+            {/* Tarjeta flotante WhatsApp (borde verde) — solo si hay WhatsApp configurado */}
+            {whatsapp && (
+              <div className="absolute -bottom-8 left-6 right-6 flex items-center gap-4 rounded-2xl border-2 border-accent-500 bg-white p-4 shadow-hover animate-fade-up">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent-50 text-accent-600">
+                  <MessageCircle className="h-6 w-6" />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="font-semibold text-ink">¿No sabés a quién llamar?</p>
+                  <p className="text-sm text-ink-soft">
+                    Escribinos y te ayudamos a encontrarlo.
+                  </p>
+                </div>
+                <a
+                  href={whatsappLink(
+                    whatsapp,
+                    'Hola! Necesito ayuda para encontrar un profesional en GPS Belgrano',
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={buttonClasses('whatsapp', 'md')}
+                >
+                  Escribir
+                </a>
               </div>
-              <a
-                href={whatsappLink(
-                  BUSINESS_WHATSAPP,
-                  'Hola! Necesito ayuda para encontrar un profesional en GPS Belgrano',
-                )}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={buttonClasses('whatsapp', 'md')}
-              >
-                Escribir
-              </a>
-            </div>
+            )}
           </div>
         </div>
       </Container>
