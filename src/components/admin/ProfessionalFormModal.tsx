@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
-import { Modal, Input, Textarea, Select, Button } from '@/components/ui'
+import { Check } from 'lucide-react'
+import { Modal, Input, Textarea, Button, Icon } from '@/components/ui'
 import { FilterField } from '@/components/filters/FilterField'
 import { slugify } from '@/utils/slugify'
+import { getCategoryIds, MAX_CATEGORIES } from '@/utils/professionalCategories'
+import { getColorClasses } from '@/utils/categoryColors'
 import type { Category, Professional, NewProfessional } from '@/types'
 import { cn } from '@/utils/format'
 
@@ -17,7 +20,7 @@ interface ProfessionalFormModalProps {
 const empty = {
   name: '',
   profession: '',
-  categoryId: '',
+  categoryIds: [] as string[],
   zone: '',
   city: 'Belgrano',
   phone: '',
@@ -83,7 +86,7 @@ export function ProfessionalFormModal({
       setForm({
         name: professional.name,
         profession: professional.profession ?? '',
-        categoryId: professional.categoryId,
+        categoryIds: getCategoryIds(professional),
         zone: professional.zone,
         city: professional.city,
         phone: professional.phone,
@@ -104,10 +107,15 @@ export function ProfessionalFormModal({
   const set = <K extends keyof typeof form>(key: K, value: (typeof form)[K]) =>
     setForm((f) => ({ ...f, [key]: value }))
 
-  const categoryOptions = [
-    { value: '', label: 'Sin categoría' },
-    ...categories.map((c) => ({ value: c.id, label: c.name })),
-  ]
+  const toggleCategory = (id: string) => {
+    setForm((f) => {
+      if (f.categoryIds.includes(id)) {
+        return { ...f, categoryIds: f.categoryIds.filter((x) => x !== id) }
+      }
+      if (f.categoryIds.length >= MAX_CATEGORIES) return f
+      return { ...f, categoryIds: [...f.categoryIds, id] }
+    })
+  }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -118,7 +126,7 @@ export function ProfessionalFormModal({
       const data: NewProfessional = {
         name: form.name.trim(),
         slug: professional?.slug ?? slugify(form.name),
-        categoryId: form.categoryId,
+        categoryIds: form.categoryIds,
         profession: form.profession.trim(),
         description: form.description.trim(),
         phone: form.phone.trim(),
@@ -171,12 +179,55 @@ export function ProfessionalFormModal({
           </FilterField>
         </div>
 
-        <FilterField label="Categoría">
-          <Select
-            options={categoryOptions}
-            value={form.categoryId}
-            onChange={(e) => set('categoryId', e.target.value)}
-          />
+        <FilterField label={`Categorías (hasta ${MAX_CATEGORIES})`}>
+          <div className="rounded-xl border border-line p-2">
+            <div className="mb-1.5 flex items-center justify-between px-1">
+              <span className="text-xs text-ink-soft">
+                Seleccioná 1 a {MAX_CATEGORIES} rubros
+              </span>
+              <span className="text-xs font-semibold text-brand-600">
+                {form.categoryIds.length}/{MAX_CATEGORIES}
+              </span>
+            </div>
+            <div className="max-h-44 space-y-1 overflow-y-auto">
+              {categories.map((c) => {
+                const checked = form.categoryIds.includes(c.id)
+                const disabled =
+                  !checked && form.categoryIds.length >= MAX_CATEGORIES
+                const colors = getColorClasses(c.color)
+                return (
+                  <button
+                    key={c.id}
+                    type="button"
+                    disabled={disabled}
+                    onClick={() => toggleCategory(c.id)}
+                    className={cn(
+                      'flex w-full items-center gap-2.5 rounded-lg px-2 py-1.5 text-left text-sm transition-colors',
+                      checked ? 'bg-brand-50' : 'hover:bg-muted',
+                      disabled && 'cursor-not-allowed opacity-40',
+                    )}
+                  >
+                    <span
+                      className={cn(
+                        'flex h-5 w-5 shrink-0 items-center justify-center rounded border',
+                        checked
+                          ? 'border-brand-600 bg-brand-600 text-white'
+                          : 'border-line',
+                      )}
+                    >
+                      {checked && <Check className="h-3.5 w-3.5" />}
+                    </span>
+                    <span
+                      className={`flex h-6 w-6 shrink-0 items-center justify-center rounded text-white ${colors.solidBg}`}
+                    >
+                      <Icon name={c.icon} className="h-3.5 w-3.5" />
+                    </span>
+                    <span className="truncate text-ink">{c.name}</span>
+                  </button>
+                )
+              })}
+            </div>
+          </div>
         </FilterField>
 
         <div className="grid gap-4 sm:grid-cols-2">

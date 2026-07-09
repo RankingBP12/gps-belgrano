@@ -14,6 +14,7 @@ import { getAllCategories } from '@/services/categories.service'
 import { getAllProfessionals } from '@/services/professionals.service'
 import { getAllRequests } from '@/services/requests.service'
 import { getColorClasses } from '@/utils/categoryColors'
+import { getCategoryIds } from '@/utils/professionalCategories'
 import type { Category, Professional, ServiceRequest } from '@/types'
 
 export function AdminStatsPage() {
@@ -47,10 +48,12 @@ export function AdminStatsPage() {
     const available = professionals.filter((p) => p.available).length
     const featured = professionals.filter((p) => p.featured).length
 
-    // Profesionales por categoría.
+    // Profesionales por categoría (cuenta en cada una de sus categorías).
     const countByCat = new Map<string, number>()
     professionals.forEach((p) =>
-      countByCat.set(p.categoryId, (countByCat.get(p.categoryId) ?? 0) + 1),
+      getCategoryIds(p).forEach((cid) =>
+        countByCat.set(cid, (countByCat.get(cid) ?? 0) + 1),
+      ),
     )
     const perCategory = categories
       .map((c) => ({ category: c, count: countByCat.get(c.id) ?? 0 }))

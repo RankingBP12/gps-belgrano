@@ -13,7 +13,10 @@ export interface Professional {
   id: string
   name: string
   slug: string
-  categoryId: string
+  /** Categorías a las que pertenece el profesional (hasta 3). */
+  categoryIds: string[]
+  /** Legacy: categoría única (compatibilidad con datos anteriores). */
+  categoryId?: string
   /** Denormalizado para mostrar la profesión sin joins. */
   profession?: string
   description: string

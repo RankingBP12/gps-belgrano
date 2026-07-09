@@ -11,6 +11,7 @@ import {
 } from '@/services/professionals.service'
 import { getAllCategories } from '@/services/categories.service'
 import { slugify } from '@/utils/slugify'
+import { getCategoryIds } from '@/utils/professionalCategories'
 import type { Category, Professional, NewProfessional } from '@/types'
 
 export function AdminProfessionalsPage() {
@@ -34,9 +35,13 @@ export function AdminProfessionalsPage() {
 
   useEffect(load, [])
 
-  const catName = useMemo(() => {
+  const catNames = useMemo(() => {
     const map = new Map(categories.map((c) => [c.id, c.name]))
-    return (id: string) => map.get(id) ?? '—'
+    return (p: Professional) =>
+      getCategoryIds(p)
+        .map((id) => map.get(id))
+        .filter(Boolean)
+        .join(', ') || '—'
   }, [categories])
 
   const filtered = useMemo(() => {
@@ -47,7 +52,8 @@ export function AdminProfessionalsPage() {
         slugify(p.name).includes(t) ||
         slugify(p.profession ?? '').includes(t) ||
         p.services.some((s) => slugify(s).includes(t))
-      const matchesCat = catFilter === 'all' || p.categoryId === catFilter
+      const matchesCat =
+        catFilter === 'all' || getCategoryIds(p).includes(catFilter)
       return matchesTerm && matchesCat
     })
   }, [professionals, term, catFilter])
@@ -143,7 +149,7 @@ export function AdminProfessionalsPage() {
                     {!p.available && <Badge variant="muted">No disponible</Badge>}
                   </div>
                   <p className="truncate text-sm text-ink-soft">
-                    {p.profession || '—'} · {catName(p.categoryId)} · {p.zone}
+                    {p.profession || '—'} · {catNames(p)} · {p.zone}
                   </p>
                 </div>
 

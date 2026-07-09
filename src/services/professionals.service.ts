@@ -12,6 +12,7 @@ import {
 } from 'firebase/firestore'
 import { professionalsRef, COLLECTIONS } from '@/firebase/collections'
 import { db } from '@/firebase/config'
+import { getCategoryIds } from '@/utils/professionalCategories'
 import type { Professional, NewProfessional } from '@/types'
 
 function mapDocs(snap: QuerySnapshot<Professional>): Professional[] {
@@ -64,15 +65,17 @@ export async function getFeaturedProfessionals(max = 6): Promise<Professional[]>
 
 /**
  * Profesionales de una categoría (por id).
- * Se ordena en el cliente para no requerir un índice compuesto
- * (categoryId + name) en Firestore.
+ * Un profesional puede pertenecer a varias categorías (`categoryIds`),
+ * por eso se filtra por pertenencia al array. Trae todo y filtra en el
+ * cliente para contemplar también datos legacy con `categoryId` único.
  */
 export async function getProfessionalsByCategory(
   categoryId: string,
 ): Promise<Professional[]> {
-  const q = query(professionalsRef, where('categoryId', '==', categoryId))
-  const list = mapDocs(await getDocs(q))
-  return list.sort((a, b) => a.name.localeCompare(b.name))
+  const list = mapDocs(await getDocs(professionalsRef))
+  return list
+    .filter((p) => getCategoryIds(p).includes(categoryId))
+    .sort((a, b) => a.name.localeCompare(b.name))
 }
 
 /** Perfil individual por slug. */
