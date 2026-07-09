@@ -37,13 +37,13 @@ export function Hero() {
             <QuickCategories />
           </div>
 
-          {/* Columna derecha (55%) */}
-          <div className="relative hidden lg:block">
+          {/* Columna derecha (55%) — visible también en mobile */}
+          <div className="relative">
             <LocationMap />
 
-            {/* Tarjeta flotante WhatsApp (borde verde) — solo si hay WhatsApp configurado */}
+            {/* Tarjeta flotante WhatsApp (borde verde) — solo desktop y si hay WhatsApp */}
             {whatsapp && (
-              <div className="absolute -bottom-8 left-6 right-6 flex items-center gap-4 rounded-2xl border-2 border-accent-500 bg-white p-4 shadow-hover animate-fade-up">
+              <div className="absolute -bottom-8 left-6 right-6 hidden items-center gap-4 rounded-2xl border-2 border-accent-500 bg-white p-4 shadow-hover animate-fade-up lg:flex">
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent-50 text-accent-600">
                   <MessageCircle className="h-6 w-6" />
                 </span>
