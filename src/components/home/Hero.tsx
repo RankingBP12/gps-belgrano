@@ -2,7 +2,7 @@ import { MessageCircle } from 'lucide-react'
 import { Container, buttonClasses } from '@/components/ui'
 import { SearchBar } from './SearchBar'
 import { QuickCategories } from './QuickCategories'
-import { CityIllustration, BigPin } from '@/components/shared/CityIllustration'
+import { LocationMap } from '@/components/shared/LocationMap'
 import { whatsappLink } from '@/utils/whatsapp'
 import { useSettings } from '@/hooks/useSettings'
 
@@ -39,11 +39,7 @@ export function Hero() {
 
           {/* Columna derecha (55%) */}
           <div className="relative hidden lg:block">
-            <div className="relative">
-              <CityIllustration className="rounded-3xl shadow-card ring-1 ring-line" />
-              {/* Pin grande superpuesto */}
-              <BigPin className="absolute left-1/2 top-6 h-40 w-auto -translate-x-1/2 drop-shadow-xl animate-fade-up" />
-            </div>
+            <LocationMap />
 
             {/* Tarjeta flotante WhatsApp (borde verde) — solo si hay WhatsApp configurado */}
             {whatsapp && (
