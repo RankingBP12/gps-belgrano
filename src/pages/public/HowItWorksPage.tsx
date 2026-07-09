@@ -32,7 +32,7 @@ export function HowItWorksPage() {
     <>
       <PageHero
         title="Cómo funciona GPS Belgrano"
-        subtitle="Conectamos a los vecinos de Belgrano con los mejores profesionales del barrio, de forma simple y transparente."
+        subtitle="Conectamos a los vecinos de Belgrano con los mejores profesionales y servicios en tu barrio, de forma simple y transparente."
       />
 
       <HowItWorks />

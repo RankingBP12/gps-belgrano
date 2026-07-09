@@ -55,7 +55,7 @@ export function Logo({ light = false, withTagline = true, className }: LogoProps
               light ? 'text-white/70' : 'text-ink-faint',
             )}
           >
-            Profesionales del barrio
+            Profesionales y servicios en tu barrio
           </span>
         )}
       </span>

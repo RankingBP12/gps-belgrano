@@ -12,7 +12,7 @@ export function CityIllustration({ className }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
       className={cn('h-auto w-full', className)}
       role="img"
-      aria-label="Ilustración del barrio de Belgrano"
+      aria-label="Ilustración del pueblo de Belgrano"
     >
       <defs>
         <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">

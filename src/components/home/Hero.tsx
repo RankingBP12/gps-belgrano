@@ -1,23 +1,10 @@
-import { ShieldCheck, Zap, Users, MessageCircle } from 'lucide-react'
+import { MessageCircle } from 'lucide-react'
 import { Container, buttonClasses } from '@/components/ui'
 import { SearchBar } from './SearchBar'
+import { QuickCategories } from './QuickCategories'
 import { CityIllustration, BigPin } from '@/components/shared/CityIllustration'
 import { whatsappLink } from '@/utils/whatsapp'
 import { BUSINESS_WHATSAPP } from '@/utils/constants'
-
-const benefits = [
-  {
-    icon: ShieldCheck,
-    title: 'Profesionales verificados',
-    text: 'Revisamos cada perfil.',
-  },
-  { icon: Zap, title: 'Atención rápida', text: 'Respuesta en minutos.' },
-  {
-    icon: Users,
-    title: 'Recomendados por vecinos',
-    text: 'Confianza del barrio.',
-  },
-]
 
 export function Hero() {
   return (
@@ -45,18 +32,8 @@ export function Hero() {
               <SearchBar variant="hero" />
             </div>
 
-            {/* 3 beneficios */}
-            <ul className="mt-8 grid gap-5 sm:grid-cols-3">
-              {benefits.map((b) => (
-                <li key={b.title} className="flex flex-col gap-2">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
-                    <b.icon className="h-5 w-5" />
-                  </span>
-                  <p className="text-sm font-semibold text-ink">{b.title}</p>
-                  <p className="-mt-1 text-sm text-ink-soft">{b.text}</p>
-                </li>
-              ))}
-            </ul>
+            {/* Accesos rápidos a categorías (visibles al ingresar) */}
+            <QuickCategories />
           </div>
 
           {/* Columna derecha (55%) */}

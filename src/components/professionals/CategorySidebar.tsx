@@ -1,6 +1,5 @@
-import { Check, ShieldCheck, MessageCircle, Zap, CalendarCheck, Lock } from 'lucide-react'
+import { Check, ShieldCheck, MessageCircle, Zap, CalendarCheck, Lock, MapPin } from 'lucide-react'
 import { WhatsAppCTACard } from '@/components/shared/WhatsAppCTACard'
-import { ZONES } from '@/utils/constants'
 
 /** Mini mapa ilustrativo (SVG). */
 function MapIllustration() {
@@ -24,21 +23,28 @@ function MapIllustration() {
   )
 }
 
-function CoverageCard() {
+function CoverageCard({ zones }: { zones: string[] }) {
   return (
     <div className="rounded-2xl border border-line bg-white p-5 shadow-card">
       <h3 className="font-bold text-ink">Zona de cobertura</h3>
       <div className="mt-3">
         <MapIllustration />
       </div>
-      <ul className="mt-4 grid grid-cols-2 gap-2">
-        {ZONES.map((z) => (
-          <li key={z} className="flex items-center gap-1.5 text-sm text-ink-soft">
-            <Check className="h-4 w-4 shrink-0 text-accent-600" />
-            {z}
-          </li>
-        ))}
-      </ul>
+      {zones.length > 0 ? (
+        <ul className="mt-4 grid grid-cols-2 gap-2">
+          {zones.map((z) => (
+            <li key={z} className="flex items-center gap-1.5 text-sm text-ink-soft">
+              <Check className="h-4 w-4 shrink-0 text-accent-600" />
+              {z}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="mt-4 flex items-center gap-1.5 text-sm text-ink-soft">
+          <MapPin className="h-4 w-4 shrink-0 text-accent-600" />
+          Belgrano y alrededores
+        </p>
+      )}
     </div>
   )
 }
@@ -85,10 +91,16 @@ function SecurityCard() {
   )
 }
 
-export function CategorySidebar({ categoryName }: { categoryName?: string }) {
+export function CategorySidebar({
+  categoryName,
+  zones = [],
+}: {
+  categoryName?: string
+  zones?: string[]
+}) {
   return (
     <div className="space-y-6">
-      <CoverageCard />
+      <CoverageCard zones={zones} />
       <WhatsAppCTACard
         title="¿No encontrás lo que buscás?"
         description={`Escribinos y te ayudamos a encontrar el ${

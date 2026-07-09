@@ -2,24 +2,31 @@ import { SlidersHorizontal, RotateCcw } from 'lucide-react'
 import { Select, Button } from '@/components/ui'
 import type { ProfessionalFilters } from './types'
 import { DEFAULT_FILTERS } from './types'
-import { ZONES, AVAILABILITY_OPTIONS, SORT_OPTIONS } from '@/utils/constants'
+import { AVAILABILITY_OPTIONS, SORT_OPTIONS } from '@/utils/constants'
 
 interface FiltersBarProps {
   filters: ProfessionalFilters
   onChange: (filters: ProfessionalFilters) => void
   specialties: string[]
+  /** Localidades disponibles (derivadas de los profesionales). */
+  zones: string[]
 }
 
 /** Barra horizontal de filtros tipo select (página de categoría). */
-export function FiltersBar({ filters, onChange, specialties }: FiltersBarProps) {
+export function FiltersBar({
+  filters,
+  onChange,
+  specialties,
+  zones,
+}: FiltersBarProps) {
   const set = <K extends keyof ProfessionalFilters>(
     key: K,
     value: ProfessionalFilters[K],
   ) => onChange({ ...filters, [key]: value })
 
   const zoneOptions = [
-    { value: 'all', label: 'Todas las zonas' },
-    ...ZONES.map((z) => ({ value: z, label: z })),
+    { value: 'all', label: 'Todas las localidades' },
+    ...zones.map((z) => ({ value: z, label: z })),
   ]
   const specialtyOptions = [
     { value: 'all', label: 'Todas las especialidades' },

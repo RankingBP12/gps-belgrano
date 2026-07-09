@@ -14,6 +14,7 @@ import { useProfessionalsByCategory } from '@/hooks/useProfessionals'
 import {
   filterProfessionals,
   extractSpecialties,
+  extractZones,
 } from '@/utils/filterProfessionals'
 
 export function CategoryPage() {
@@ -28,6 +29,7 @@ export function CategoryPage() {
     () => extractSpecialties(professionals),
     [professionals],
   )
+  const zones = useMemo(() => extractZones(professionals), [professionals])
   const filtered = useMemo(
     () => filterProfessionals(professionals, filters),
     [professionals, filters],
@@ -63,6 +65,7 @@ export function CategoryPage() {
           filters={filters}
           onChange={setFilters}
           specialties={specialties}
+          zones={zones}
         />
 
         {/* Layout 70 / 30 */}
@@ -74,7 +77,7 @@ export function CategoryPage() {
 
           {/* Sidebar */}
           <aside className="lg:sticky lg:top-24 lg:self-start">
-            <CategorySidebar categoryName={category?.name} />
+            <CategorySidebar categoryName={category?.name} zones={zones} />
           </aside>
         </div>
       </Container>

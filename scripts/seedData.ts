@@ -158,7 +158,7 @@ function mkPro(
     email: `${slug}@gpsbelgrano.com`,
     photo: avatar(name),
     gallery: [work(slug + '1'), work(slug + '2'), work(slug + '3'), work(slug + '4')],
-    city: 'CABA',
+    city: 'Belgrano',
     zone,
     services,
     available: true,

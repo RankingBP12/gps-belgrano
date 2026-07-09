@@ -50,3 +50,12 @@ export function extractSpecialties(list: Professional[]): string[] {
   list.forEach((p) => p.services.forEach((s) => set.add(s)))
   return Array.from(set).sort()
 }
+
+/** Extrae las localidades/zonas únicas presentes en los profesionales. */
+export function extractZones(list: Professional[]): string[] {
+  const set = new Set<string>()
+  list.forEach((p) => {
+    if (p.zone?.trim()) set.add(p.zone.trim())
+  })
+  return Array.from(set).sort((a, b) => a.localeCompare(b, 'es'))
+}

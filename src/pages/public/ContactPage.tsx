@@ -25,7 +25,7 @@ const channels = [
   {
     icon: MapPin,
     title: 'Ubicación',
-    value: 'Belgrano, CABA',
+    value: 'Belgrano y alrededores',
     href: undefined,
     accent: 'text-purple-600 bg-purple-50',
   },

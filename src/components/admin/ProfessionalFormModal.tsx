@@ -19,7 +19,7 @@ const empty = {
   profession: '',
   categoryId: '',
   zone: '',
-  city: 'CABA',
+  city: 'Belgrano',
   phone: '',
   whatsapp: '',
   email: '',
@@ -180,10 +180,14 @@ export function ProfessionalFormModal({
         </FilterField>
 
         <div className="grid gap-4 sm:grid-cols-2">
-          <FilterField label="Zona">
-            <Input value={form.zone} onChange={(e) => set('zone', e.target.value)} />
+          <FilterField label="Localidad">
+            <Input
+              value={form.zone}
+              onChange={(e) => set('zone', e.target.value)}
+              placeholder="Ej: Belgrano"
+            />
           </FilterField>
-          <FilterField label="Ciudad">
+          <FilterField label="Ciudad / Partido">
             <Input value={form.city} onChange={(e) => set('city', e.target.value)} />
           </FilterField>
         </div>

@@ -105,11 +105,11 @@ export function PublishServicePage() {
                   />
                 </FilterField>
 
-                <FilterField label="Zona">
+                <FilterField label="Localidad / Ciudad">
                   <Input
                     value={form.zone}
                     onChange={(e) => set('zone', e.target.value)}
-                    placeholder="Ej: Belgrano R"
+                    placeholder="Ej: Belgrano, o tu localidad"
                     required
                   />
                 </FilterField>

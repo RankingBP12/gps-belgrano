@@ -1,20 +1,8 @@
 export const APP_NAME = 'GPS Belgrano'
-export const APP_TAGLINE = 'Encontrá profesionales de confianza en tu barrio'
+export const APP_TAGLINE = 'Profesionales y servicios en tu barrio'
 
 /** Número de WhatsApp del negocio para la CTA general (formato internacional sin +). */
 export const BUSINESS_WHATSAPP = '5491100000000'
-
-/** Zonas de cobertura (barrio de Belgrano y alrededores). */
-export const ZONES = [
-  'Belgrano',
-  'Belgrano R',
-  'Belgrano C',
-  'Colegiales',
-  'Núñez',
-  'Palermo',
-  'Villa Urquiza',
-  'Coghlan',
-] as const
 
 export const AVAILABILITY_OPTIONS = [
   { value: 'all', label: 'Todos' },
