@@ -4,6 +4,7 @@ import {
   LayoutDashboard,
   FolderTree,
   Users,
+  Info,
   LogOut,
   Menu,
   X,
@@ -18,6 +19,7 @@ const NAV = [
   { to: ADMIN_ROUTES.dashboard, label: 'Estadísticas', icon: LayoutDashboard, end: true },
   { to: ADMIN_ROUTES.categories, label: 'Categorías', icon: FolderTree, end: false },
   { to: ADMIN_ROUTES.professionals, label: 'Profesionales', icon: Users, end: false },
+  { to: ADMIN_ROUTES.usefulData, label: 'Datos de interés', icon: Info, end: false },
 ]
 
 export function AdminLayout() {

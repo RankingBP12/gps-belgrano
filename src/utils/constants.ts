@@ -18,6 +18,7 @@ export const SORT_OPTIONS = [
 
 export const NAV_LINKS = [
   { label: 'Inicio', to: '/' },
+  { label: 'Datos de interés', to: '/datos-de-interes' },
   { label: 'Cómo funciona', to: '/como-funciona' },
   { label: 'Publicá tu servicio', to: '/publicar' },
   { label: 'Contacto', to: '/contacto' },

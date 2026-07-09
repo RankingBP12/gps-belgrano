@@ -20,4 +20,5 @@ export const ADMIN_ROUTES = {
   dashboard: '/admin',
   categories: '/admin/categorias',
   professionals: '/admin/profesionales',
+  usefulData: '/admin/datos',
 }

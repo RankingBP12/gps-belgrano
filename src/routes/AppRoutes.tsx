@@ -9,12 +9,14 @@ import { ProfessionalProfilePage } from '@/pages/public/ProfessionalProfilePage'
 import { HowItWorksPage } from '@/pages/public/HowItWorksPage'
 import { PublishServicePage } from '@/pages/public/PublishServicePage'
 import { ContactPage } from '@/pages/public/ContactPage'
+import { UsefulDataPage } from '@/pages/public/UsefulDataPage'
 import { NotFoundPage } from '@/pages/public/NotFoundPage'
 
 import { AdminLoginPage } from '@/pages/admin/AdminLoginPage'
 import { AdminStatsPage } from '@/pages/admin/AdminStatsPage'
 import { AdminCategoriesPage } from '@/pages/admin/AdminCategoriesPage'
 import { AdminProfessionalsPage } from '@/pages/admin/AdminProfessionalsPage'
+import { AdminUsefulDataPage } from '@/pages/admin/AdminUsefulDataPage'
 
 export function AppRoutes() {
   return (
@@ -25,6 +27,7 @@ export function AppRoutes() {
         <Route path="como-funciona" element={<HowItWorksPage />} />
         <Route path="publicar" element={<PublishServicePage />} />
         <Route path="contacto" element={<ContactPage />} />
+        <Route path="datos-de-interes" element={<UsefulDataPage />} />
         <Route path="profesional/:slug" element={<ProfessionalProfilePage />} />
         {/* Categoría por slug en la raíz — debe ir al final del grupo. */}
         <Route path=":categorySlug" element={<CategoryPage />} />
@@ -44,6 +47,7 @@ export function AppRoutes() {
         <Route index element={<AdminStatsPage />} />
         <Route path="categorias" element={<AdminCategoriesPage />} />
         <Route path="profesionales" element={<AdminProfessionalsPage />} />
+        <Route path="datos" element={<AdminUsefulDataPage />} />
       </Route>
     </Routes>
   )

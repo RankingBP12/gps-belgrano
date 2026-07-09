@@ -4,7 +4,14 @@ import {
   type DocumentData,
 } from 'firebase/firestore'
 import { db } from './config'
-import type { Category, Professional, AppUser, ServiceRequest, Favorite } from '@/types'
+import type {
+  Category,
+  Professional,
+  AppUser,
+  ServiceRequest,
+  Favorite,
+  UsefulContact,
+} from '@/types'
 
 /** Nombres de colecciones centralizados. */
 export const COLLECTIONS = {
@@ -13,6 +20,7 @@ export const COLLECTIONS = {
   users: 'users',
   requests: 'requests',
   favorites: 'favorites',
+  usefulContacts: 'usefulContacts',
 } as const
 
 /** Helper para obtener una referencia de colección tipada. */
@@ -25,3 +33,6 @@ export const professionalsRef = typedCollection<Professional>(COLLECTIONS.profes
 export const usersRef = typedCollection<AppUser>(COLLECTIONS.users)
 export const requestsRef = typedCollection<ServiceRequest>(COLLECTIONS.requests)
 export const favoritesRef = typedCollection<Favorite>(COLLECTIONS.favorites)
+export const usefulContactsRef = typedCollection<UsefulContact>(
+  COLLECTIONS.usefulContacts,
+)
