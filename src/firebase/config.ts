@@ -1,5 +1,5 @@
 import { initializeApp, getApps, getApp } from 'firebase/app'
-import { getFirestore } from 'firebase/firestore'
+import { initializeFirestore, getFirestore } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 import { getStorage } from 'firebase/storage'
 
@@ -16,7 +16,18 @@ const firebaseConfig = {
 // Evita reinicializar en HMR / múltiples imports.
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig)
 
-export const db = getFirestore(app)
+// `ignoreUndefinedProperties` evita el error de Firestore cuando un documento
+// incluye campos opcionales en `undefined` (ej. schedule al crear un profesional).
+function createDb() {
+  try {
+    return initializeFirestore(app, { ignoreUndefinedProperties: true })
+  } catch {
+    // En HMR initializeFirestore puede llamarse dos veces: reusamos la instancia.
+    return getFirestore(app)
+  }
+}
+
+export const db = createDb()
 export const auth = getAuth(app)
 export const storage = getStorage(app)
 
