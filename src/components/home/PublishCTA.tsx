@@ -16,7 +16,7 @@ export function PublishCTA() {
               </span>
               <div>
                 <h2 className="text-2xl font-bold text-white md:text-3xl">
-                  ¿Sos profesional?
+                  ¿Sos profesional o brindás un servicio?
                 </h2>
                 <p className="mt-1.5 text-white/75">
                   Sumate gratis y conseguí más clientes en el barrio.
